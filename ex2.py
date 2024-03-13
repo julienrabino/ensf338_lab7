@@ -71,20 +71,20 @@ class binarySearchTree:
             
         if self.pivot is None:
             if setup == 0:
-                print("Case 1: No pivot found")
+                print("Case 1 -  No pivot found")
         else:
             if pivot_balance >=1:
                 if node_inserted.data<self.pivot.data and setup == 0:
-                    print("Case 2: Pivot exists and the node was added to the shorter subtree")
+                    print("Case 2 -  Pivot exists and the node was added to the shorter subtree")
                 elif node_inserted.data>self.pivot.data and setup == 0:
-                    print("Case 3: not supported")
+                    print("Case 3 - not supported")
 
 
             elif pivot_balance<=-1:
                 if node_inserted.data>self.pivot.data and setup == 0:
-                    print("Case 2: Pivot exists and the node was added to the shorter subtree")
+                    print("Case 2 - Pivot exists and the node was added to the shorter subtree")
                 elif node_inserted.data<self.pivot.data and setup == 0:
-                    print("Case 3: not supported")
+                    print("Case 3 - not supported")
                 
          
 
@@ -145,14 +145,16 @@ class binarySearchTree:
     
     # def _print_tree_recursive(self, node):
     #     if node is not None:
-    #         # Print current node and its balance
+    #         Print current node and its balance
     #         print(f"Node: {node.data}, Balance: {node.balance}")
 
-    #         # Recursively print left subtree
+    #         Recursively print left subtree
     #         self._print_tree_recursive(node.left)
 
-    #         # Recursively print right subtree
+    #         Recursively print right subtree
     #         self._print_tree_recursive(node.right)
+
+
 def main():
 
     # 4a) Adding a node results in case 1
@@ -162,7 +164,7 @@ def main():
     BST.insert(8,1)
     BST.insert(11,1)
 
-    print("Message from BST after insertion of node: ")
+    print("Message from BST after insertion of node: " ,end = '')
     BST.insert(6,0)
 
 
@@ -173,7 +175,7 @@ def main():
     BST.insert(12,1)
     BST.insert(13,1)
     BST.insert(9,1)
-    print("Message from BST after insertion of node: ")
+    print("Message from BST after insertion of node: ", end= '')
     BST.insert(8,0)
 
     # 4c) Adding a node results in case 3
@@ -182,7 +184,7 @@ def main():
     BST.insert(9,1)
     BST.insert(10,1)
     BST.insert(11,1)
-    print("Message from BST after insertion of node: ")
+    print("Message from BST after insertion of node: ", end='')
     BST.insert(12,0)
 
 if __name__ == '__main__':
