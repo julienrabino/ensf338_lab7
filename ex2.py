@@ -73,56 +73,21 @@ class binarySearchTree:
             if setup == 0:
                 print("Case 1: No pivot found")
         else:
-            if pivot_balance >=1 and node_inserted.data<self.pivot.data:
-                if setup == 0:
+            if pivot_balance >=1:
+                if node_inserted.data<self.pivot.data and setup == 0:
                     print("Case 2: Pivot exists and the node was added to the shorter subtree")
-                # if parent.left == node_inserted:
-                #     parent.left = None
-                # else:
-                #     parent.right = None
-                # self.insert_to_shorter_subtree(node_inserted, 'left')
-            elif pivot_balance<=-1 and node_inserted.data> self.pivot.data:
-                if setup == 0:
+                elif node_inserted.data>self.pivot.data and setup == 0:
+                    print("Case 3: not supported")
+
+
+            elif pivot_balance<=-1:
+                if node_inserted.data>self.pivot.data and setup == 0:
                     print("Case 2: Pivot exists and the node was added to the shorter subtree")
+                elif node_inserted.data<self.pivot.data and setup == 0:
+                    print("Case 3: not supported")
+                
+         
 
-                # if parent.left == node_inserted:
-                #     parent.left = None
-                # else:
-                #     parent.right = None
-                # self.insert_to_shorter_subtree(node_inserted, 'right')
-            elif pivot_balance>= 1 and node_inserted.data>self.pivot.data:
-                if setup == 0:
-                    print("Case 3: Pivot exists and the node was added to the taller subtree")
-            elif pivot_balance<=-1 and node_inserted.data<self.pivot.data:
-                if setup == 0:
-                    print("Case 3: Pivot exists and the node was added to the taller subtree")
-
-
-    # def insert_to_shorter_subtree(self, node, subtree):
-    #     current = self.pivot
-    #     parent =  current
-    #     if subtree == 'left':
-    #         current = current.left
-    #     else:
-    #         current = current.right
-            
-    #     while current is not None:
-    #         parent = current
-    #         if node.data <= current.data:
-    #             current = current.left
-    #         else:
-    #             current = current.right
-
-
-    #     if node.data <= parent.data:
-    #         parent.left = node
-    #     else:
-    #         parent.right = node
-        
-    #     temp = node
-    #     while temp != self.pivot.parent:
-    #         temp.balance = self.calculate_balance(temp)
-    #         temp = temp.parent
 
         
 
@@ -178,16 +143,16 @@ class binarySearchTree:
         
         return max_balance
     
-    def _print_tree_recursive(self, node):
-        if node is not None:
-            # Print current node and its balance
-            print(f"Node: {node.data}, Balance: {node.balance}")
+    # def _print_tree_recursive(self, node):
+    #     if node is not None:
+    #         # Print current node and its balance
+    #         print(f"Node: {node.data}, Balance: {node.balance}")
 
-            # Recursively print left subtree
-            self._print_tree_recursive(node.left)
+    #         # Recursively print left subtree
+    #         self._print_tree_recursive(node.left)
 
-            # Recursively print right subtree
-            self._print_tree_recursive(node.right)
+    #         # Recursively print right subtree
+    #         self._print_tree_recursive(node.right)
 def main():
 
     # 4a) Adding a node results in case 1
@@ -199,11 +164,10 @@ def main():
 
     print("Message from BST after insertion of node: ")
     BST.insert(6,0)
-    BST._print_tree_recursive(BST.root)
 
 
 
-# 4b) Adding a node results in case 2
+    # 4b) Adding a node results in case 2
     BST = binarySearchTree()
     BST.insert(10,1)
     BST.insert(12,1)
@@ -211,10 +175,15 @@ def main():
     BST.insert(9,1)
     print("Message from BST after insertion of node: ")
     BST.insert(8,0)
-    BST._print_tree_recursive(BST.root)
 
-# 4c)
-    
+    # 4c) Adding a node results in case 3
+    BST = binarySearchTree()
+    BST.insert(8,1)
+    BST.insert(9,1)
+    BST.insert(10,1)
+    BST.insert(11,1)
+    print("Message from BST after insertion of node: ")
+    BST.insert(12,0)
 
 if __name__ == '__main__':
     main()
