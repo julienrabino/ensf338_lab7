@@ -15,7 +15,7 @@ class binarySearchTree:
         self.root = None
         self.pivot = None
     
-    def insert(self, data):
+    def insert(self, data, setup):
         current = self.root
 
         parent = None
@@ -37,7 +37,7 @@ class binarySearchTree:
             parent.right = newnode
         
         
-        self.update_balances(newnode)  
+        self.update_balances(newnode,setup)  
 
         return newnode
     
@@ -52,61 +52,78 @@ class binarySearchTree:
                 current = current.right
         return None
     
-    def update_balances(self, node):
+    def update_balances(self, node, setup):
         self.pivot = None
         node_inserted = node
         parent = node.parent
+        pivot_balance = 0
 
         while node != None:
             if node.balance >=1 or node.balance<=-1:
                 if self.pivot is None:
                     self.pivot = node
-            
+                    pivot_balance = node.balance
+                    # if setup == 0:
+                    #     print("Case 2: Pivot exists and the node was added to the shorter subtree")
             node.balance = self.calculate_balance(node)
             node = node.parent
 
             
         if self.pivot is None:
-            print("Case 1: No pivot found")
-        elif self.pivot is not None and (self.pivot.balance >= 1 or self.pivot.balance <= -1):
-            print("Case 2: Pivot exists and the node was aded to the shorter subtree")
-
-            if self.pivot.balance >1 and node_inserted.data<self.pivot.data:
-                if parent.left == node_inserted:
-                    parent.left == None
-                else:
-                    parent.right == None
-                self.insert_to_shorter_subtree(node_inserted, 'left')
-            elif self.pivot.balance<-1 and node_inserted.data> self.pivot.data:
-                if parent.left == node_inserted:
-                    parent.left == None
-                else:
-                    parent.right == None
-                self.insert_to_shorter_subtree(node_inserted, 'right')
-
-
-    def insert_to_shorter_subtree(self, node, subtree):
-        current = self.pivot
-        if subtree == 'left':
-            current = current.left
+            if setup == 0:
+                print("Case 1: No pivot found")
         else:
-            current = current.right
+            if pivot_balance >=1 and node_inserted.data<self.pivot.data:
+                if setup == 0:
+                    print("Case 2: Pivot exists and the node was added to the shorter subtree")
+                # if parent.left == node_inserted:
+                #     parent.left = None
+                # else:
+                #     parent.right = None
+                # self.insert_to_shorter_subtree(node_inserted, 'left')
+            elif pivot_balance<=-1 and node_inserted.data> self.pivot.data:
+                if setup == 0:
+                    print("Case 2: Pivot exists and the node was added to the shorter subtree")
+
+                # if parent.left == node_inserted:
+                #     parent.left = None
+                # else:
+                #     parent.right = None
+                # self.insert_to_shorter_subtree(node_inserted, 'right')
+            elif pivot_balance>= 1 and node_inserted.data>self.pivot.data:
+                if setup == 0:
+                    print("Case 3: Pivot exists and the node was added to the taller subtree")
+            elif pivot_balance<=-1 and node_inserted.data<self.pivot.data:
+                if setup == 0:
+                    print("Case 3: Pivot exists and the node was added to the taller subtree")
+
+
+    # def insert_to_shorter_subtree(self, node, subtree):
+    #     current = self.pivot
+    #     parent =  current
+    #     if subtree == 'left':
+    #         current = current.left
+    #     else:
+    #         current = current.right
             
-        while current is not None:
-            parent = current
-            if node.data <= current.data:
-                current.balance -=1
-                current = current.left
-            else:
-                current.balance +=1
-                current = current.right
+    #     while current is not None:
+    #         parent = current
+    #         if node.data <= current.data:
+    #             current = current.left
+    #         else:
+    #             current = current.right
 
 
-        if node.data <= parent.data:
-            parent.left = node
-        else:
-            parent.right = node
+    #     if node.data <= parent.data:
+    #         parent.left = node
+    #     else:
+    #         parent.right = node
         
+    #     temp = node
+    #     while temp != self.pivot.parent:
+    #         temp.balance = self.calculate_balance(temp)
+    #         temp = temp.parent
+
         
 
     def calculate_balance(self,node):
@@ -172,15 +189,32 @@ class binarySearchTree:
             # Recursively print right subtree
             self._print_tree_recursive(node.right)
 def main():
-    BST = binarySearchTree()
-    BST.insert(1)
-    BST.insert(2)
-    BST.insert(3)
-    BST.insert(5)
-    BST.insert(4)
 
+    # 4a) Adding a node results in case 1
+    BST = binarySearchTree()
+
+    BST.insert(10, 1)
+    BST.insert(8,1)
+    BST.insert(11,1)
+
+    print("Message from BST after insertion of node: ")
+    BST.insert(6,0)
     BST._print_tree_recursive(BST.root)
 
+
+
+# 4b) Adding a node results in case 2
+    BST = binarySearchTree()
+    BST.insert(10,1)
+    BST.insert(12,1)
+    BST.insert(13,1)
+    BST.insert(9,1)
+    print("Message from BST after insertion of node: ")
+    BST.insert(8,0)
+    BST._print_tree_recursive(BST.root)
+
+# 4c)
+    
 
 if __name__ == '__main__':
     main()
