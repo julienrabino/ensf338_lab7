@@ -1,5 +1,3 @@
-import timeit
-import matplotlib.pyplot as plt
 class Node:
     def __init__(self,data, parent = None, left = None, right = None):
         self.data = data
